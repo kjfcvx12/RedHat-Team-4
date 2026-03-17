@@ -18,7 +18,9 @@ const Member = () => {
             <table>
                 <thead>
                 <tr>
-                    <th>아이디</th>
+                    <th>별명(아이디)</th>
+                    <th>가입일</th>
+                    <th>게시글수</th>
                 </tr>
                 </thead>
             </table>
