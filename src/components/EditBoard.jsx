@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import {useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {useCafe} from "./CafeContextPro.jsx";
 
 const EditBoard = () => {
     //URL 주소창 내 id(미리 string->int로 형변환)
     const {id} = parseInt(useParams());
-    //CateContext로 필요한 요소 불러오기
-    const {title, setTitle, content, setContent} = useCafe();
     //input, textarea 내 값을 객체로 저장해둔 state
     const [post, setPost] = useState({title:"", content:""});
     //페이지 전환을 위한 네비게이터 객체
