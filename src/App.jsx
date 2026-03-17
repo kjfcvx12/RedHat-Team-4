@@ -11,10 +11,16 @@ function App() {
       <div className="app-container">
         <Navibar />
         <Routes>
-          {/* path="/"는 홈 화면을 의미합니다 */}
+          {/* 메인 홈 */}
           <Route path="/" element={<Home />} />
-          {/* 다른 페이지들도 이런 식으로 추가할 수 있습니다 */}
-          <Route path="/cafe-home" element={<div>카페 홈 페이지 준비 중...</div>} />
+          
+          {/* 나머지 6개 페이지 (현재는 간단한 텍스트로 대체) */}
+          <Route path="/neighbor" element={<div style={{padding:'20px'}}>이웃 페이지</div>} />
+          <Route path="/joined-cafes" element={<div style={{padding:'20px'}}>가입카페 페이지</div>} />
+          <Route path="/new-posts" element={<div style={{padding:'20px'}}>새글 페이지</div>} />
+          <Route path="/notifications" element={<div style={{padding:'20px'}}>내소식 페이지</div>} />
+          <Route path="/chat" element={<div style={{padding:'20px'}}>채팅 페이지</div>} />
+          <Route path="/my-cafe" element={<div style={{padding:'20px'}}>마이카페 페이지</div>} />
         </Routes>
       </div>
     </Router>
