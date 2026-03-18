@@ -77,13 +77,7 @@ const CreateBoard = () => {
                             />
                         </div>
 
-                        <div className="p-8 border-t border-gray-100 bg-gray-50">
-                            <input
-                                type="text"
-                                placeholder="# 태그를 입력해주세요 (최대 10개)"
-                                className="w-full text-base text-gray-500 placeholder:text-gray-400 border border-gray-200 rounded-md py-3 px-4 focus:border-green-300 focus:ring-1 focus:ring-green-100 focus:outline-none"
-                            />
-                        </div>
+                     
 
                     </div>
 
