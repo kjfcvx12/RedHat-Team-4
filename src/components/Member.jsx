@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useCafe} from "./CafeContextPro.jsx";
 
 const Member = () => {
@@ -22,12 +22,21 @@ const Member = () => {
         {id:"post6", title:"sixth", content:"sixth_content", writerId:"3"}
     ];
 
+    const categories = ["별명(아이디)", "게시글수"];
+
+    const [input, setInput] = useState("");
+
 
     //mount 되었을 때 게시글 목록 가져오기
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         posts = JSON.parse(localStorage.getItem("posts")) || [];
     }, []);
+
+    //카테고리로 맴버 검색
+    const findByCategory = () => {
+
+    }
 
     //회원 목록 확인용 버튼(삭제 예정)
     const changeUser = () => {
@@ -51,11 +60,24 @@ const Member = () => {
                                     <h5 className="text-sm text-gray-600">카페 멤버 수</h5>
                                     <span className="text-sm font-bold text-green-500">{users.length}</span>
                                 </div>
+                                <div className="flex items-center gap-2 mb-4 p-4 bg-white border border-gray-100 rounded-md">
+                                    <span className="text-sm font-medium text-gray-600 mr-2">맴버 검색</span>
+                                    <select className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors">
+                                        {categories.map((category) => (
+                                            <option>{category}</option>
+                                        ))}
+                                    </select>
+                                    <input placeholder="검색어를 입력하세요" className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors"
+                                        value={input} onChange={(e)=>setInput(e.target.value)}/>
+                                    <button onClick={findByCategory}
+                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-500 text-white text-sm font-medium rounded-md transition-colors">검색</button>
+                                </div>
                                 <table className="w-full text-sm">
                                     <thead className="bg-white border-b border-gray-100">
                                         <tr className="text-left text-gray-600">
-                                            <th className="px-4 py-3 font-semibold">별명(아이디)</th>
-                                            <th className="px-4 py-3 font-semibold">게시글수</th>
+                                            {categories.map((category) => (
+                                                <th className="px-4 py-3 font-semibold">{category}</th>
+                                            ))}
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
