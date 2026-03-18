@@ -3,11 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 const CafeContext=createContext();
 
 const CafeContextPro = ({children}) => {
-    
-    const [user,setUser]=useState('');
-    const [pw,setPw]=useState('');
-    const [title,setTitle]=useState('');
-    const [content,setContent]=useState('');
+
     const [like,setLike]=useState(0);
     const [hate,setHate]=useState(0);
 
@@ -23,10 +19,6 @@ const CafeContextPro = ({children}) => {
     
     return (
         <CafeContext value={{
-            user,setUser,
-            pw,setPw,
-            title,setTitle,
-            content,setContent,
             like,setLike,
             hate,setHate,
             currentUser,setCurrentUser,
