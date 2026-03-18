@@ -43,7 +43,7 @@ const CreateBoard = () => {
         localStorage.setItem("posts", JSON.stringify(posts));
         setTitle("");
         setContent("");
-        navigate('/boardlist');
+        navigate('/list');
     };
 
     return (
