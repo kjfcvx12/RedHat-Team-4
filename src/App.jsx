@@ -21,19 +21,7 @@ function App() {
           <NaviBar />
         </header>
 
-        <main className="cafe-main">
-          {/* 왼쪽 사이드바 (사용자 정보/메뉴) */}
-          <aside className="cafe-sidebar">
-            <div className="user-profile">
-              <div className="profile-img"></div>
-              <p>사용자 님</p>
-              <button>카페 글쓰기</button>
-            </div>
-            <ul className="menu-list">
-              <li>전체글보기</li>
-              <li>자유게시판</li>
-            </ul>
-          </aside>
+      
 
           {/* 오른쪽 컨텐츠 영역 */}
           <section className="cafe-content">
@@ -48,7 +36,7 @@ function App() {
               <Route path="/member" element={<Member />} />
             </Routes>
           </section>
-        </main>
+
       </div>
     </Router>
   );
