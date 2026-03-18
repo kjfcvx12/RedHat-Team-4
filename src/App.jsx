@@ -17,7 +17,7 @@ function App() {
       <div className="cafe-container">
         {/* 상단 네비게이션 */}
         <header className="cafe-header">
-          <div className="logo">ai잡잡</div>
+          <div className="logo">Biceps</div>
           <NaviBar />
         </header>
 
