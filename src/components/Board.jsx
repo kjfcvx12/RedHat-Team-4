@@ -95,7 +95,13 @@ const Board = () => {
                                     </button>
                                 </Link>
                             )}
+                            
                     </div>
+                    <Link to={'/list'}>
+                        <button className="flex items-center justify-center px-6 py-2 bg-gray-800 text-white text-sm font-bold rounded-full hover:bg-gray-700 transition-all shadow-sm active:scale-95 border border-transparent">
+                            글 목록
+                        </button>
+                    </Link>
                 </div>
 
                 
