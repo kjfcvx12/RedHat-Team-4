@@ -42,7 +42,7 @@ const EditBoard = () => {
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-semibold text-gray-600">카페 글쓰기</h3>
                 <button
-                    className="px-5 py-1.5 bg-green-500 hover:bg-green-500 text-white text-sm font-medium rounded-md transition-colors"
+                    className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors"
                     type="submit">
                     등록
                 </button>

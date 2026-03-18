@@ -22,10 +22,16 @@ const Member = () => {
         {id:"post6", title:"sixth", content:"sixth_content", writerId:"3"}
     ];
 
-    const categories = ["별명(아이디)", "게시글수"];
+    //출력할 맴버(회원) 목록(검색 시 새로 출력하기 위함)
+    const [memberList, setMemberList] = useState();
 
+    //검색 카테고리 종류
+    const categories = ["별명(아이디)", "이메일", "게시글수"];
+
+    //검색 입력값
     const [input, setInput] = useState("");
-
+    //select 선택값
+    const [selected, setSelected] = useState("id");
 
     //mount 되었을 때 게시글 목록 가져오기
     useEffect(() => {
@@ -35,7 +41,24 @@ const Member = () => {
 
     //카테고리로 맴버 검색
     const findByCategory = () => {
+        if (selected === "id") {
 
+        } else if (selected === "email") {
+
+        } else {
+            alert("검색 종류를 제대로 선택해주세요!");
+        }
+
+        const newMemberList = users.map((user, index) =>
+            <tr key={index} className="text-black">
+                <td className="px-4 py-3">{user.userId}</td>
+                <td className="px-4 py-3">{user.email}</td>
+                <td className="px-4 py-3">{posts.filter(post => post.writerId === user.userId).length}</td>
+                <td>
+                    <button className="px-5 py-1.5 bg-red-500 hover:bg-red-400 text-white text-sm font-medium rounded-md transition-colors">삭제</button>
+                </td>
+            </tr>);
+        setMemberList(newMemberList);
     }
 
     //회원 목록 확인용 버튼(삭제 예정)
@@ -56,22 +79,25 @@ const Member = () => {
                 ? (users.length > 0
                         ? (
                             <>
-                                <div className="flex items-center gap-2 mb-3">
-                                    <h5 className="text-sm text-gray-600">카페 멤버 수</h5>
-                                    <span className="text-sm font-bold text-green-500">{users.length}</span>
-                                </div>
+                                {/*검색창*/}
                                 <div className="flex items-center gap-2 mb-4 p-4 bg-white border border-gray-100 rounded-md">
                                     <span className="text-sm font-medium text-gray-600 mr-2">맴버 검색</span>
-                                    <select className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors">
-                                        {categories.map((category) => (
-                                            <option>{category}</option>
-                                        ))}
+                                    <select value={selected} onChange={(e)=>setSelected(e.target.value)}
+                                        className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors">
+                                            <option value="id">별명(아이디)</option>
+                                            <option value="email">이메일</option>
                                     </select>
                                     <input placeholder="검색어를 입력하세요" className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors"
                                         value={input} onChange={(e)=>setInput(e.target.value)}/>
                                     <button onClick={findByCategory}
-                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-500 text-white text-sm font-medium rounded-md transition-colors">검색</button>
+                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">검색</button>
                                 </div>
+                                {/*맴버 수*/}
+                                <div className="flex items-center gap-2 mb-3">
+                                    <h5 className="text-sm text-gray-600">카페 멤버 수</h5>
+                                    <span className="text-sm font-bold text-green-500">{users.length}</span>
+                                </div>
+                                {/*맴버 목록*/}
                                 <table className="w-full text-sm">
                                     <thead className="bg-white border-b border-gray-100">
                                         <tr className="text-left text-gray-600">
@@ -81,12 +107,19 @@ const Member = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-100">
+                                        {/*여기에 useState로 memberList뭐 이런거 해서 변경하면 될 듯*/}
+                                        {/*
                                         {users.map((user, index) =>
                                             <tr key={index} className="text-black">
                                                 <td className="px-4 py-3">{user.userId}</td>
                                                 <td className="px-4 py-3">{posts.filter(post => post.writerId === user.userId).length}</td>
+                                                <td>
+                                                    <button className="px-5 py-1.5 bg-red-500 hover:bg-red-400 text-white text-sm font-medium rounded-md transition-colors">삭제</button>
+                                                </td>
                                             </tr>)
                                         }
+                                        */}
+                                        {memberList}
                                     </tbody>
                                 </table>
                             </>)
@@ -97,7 +130,7 @@ const Member = () => {
                     </div>
                 )
             }
-            <button onClick={changeUser} className="px-5 py-1.5 bg-green-500 hover:bg-green-500 text-white text-sm font-medium rounded-md transition-colors">관리자모드 전환</button>
+            <button onClick={changeUser} className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">관리자모드 전환</button>
         </div>
     );
 };
