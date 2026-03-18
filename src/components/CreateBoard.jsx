@@ -6,8 +6,7 @@ const CreateBoard = () => {
     const [content, setContent] = useState("");
     const navigate = useNavigate();
 
-    const storedUser = localStorage.getItem('currentUser');
-    const currentUser = storedUser ? JSON.parse(storedUser) : null;
+   
 
     useEffect(() => {
         if (!currentUser) {
