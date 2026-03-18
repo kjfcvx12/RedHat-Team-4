@@ -1,13 +1,93 @@
-/* src/App.css */
-.app-container {
-  background-color: #f9f9fa;
-  min-height: 100vh;
+/* Color Palette 적용 */
+:root {
+  --sky-400: #7ec2f3;
+  --green-500: #2db44b;
+  --red-500: #ef4444;
+  --gray-100: #f5f5f5;
+  --gray-600: #555555;
 }
 
-.main-layout {
-  display: flex;
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  font-family: 'Apple SD Gothic Neo', sans-serif;
+}
+
+.cafe-container {
   max-width: 1080px;
   margin: 0 auto;
+}
+
+/* 상단 헤더: 네비게이션 오른쪽 정렬 */
+.cafe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--green-500);
+}
+
+.top-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: var(--gray-600);
+  font-size: 14px;
+}
+
+/* 메인 레이아웃: 왼쪽 사이드바, 오른쪽 컨텐츠 */
+.cafe-main {
+  display: flex;
+  margin-top: 20px;
   gap: 20px;
+}
+
+.cafe-sidebar {
+  width: 200px;
+  background: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+.user-profile {
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  background: var(--gray-100);
+  margin: 0 auto 10px;
+  border-radius: 50%;
+}
+
+.user-profile button {
+  background-color: var(--green-500);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cafe-content {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  min-height: 500px;
 }

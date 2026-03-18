@@ -1,42 +1,54 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NaviBar from './components/NaviBar';
+import Home from './components/Home';
+import Login from './components/login'; // 명세서 기준 소문자 l
+import Join from './components/Join'; // 명세서 기준 대문자 J
+import CreateBoard from './components/CreateBoard';
+import List from './components/List';
+import Board from './components/Board';
+import EditBoard from './components/EditBoard';
+import Member from './components/Member';
 import './App.css';
-
-// [공통 컴포넌트]
-import Navibar from './components/NaviBar.jsx';
-import Home from './components/Home.jsx';
-
-// [명세서 규칙 적용: Description = 컴포넌트 이름 / 파일위치주소 반영]
-// 팀원들이 실제 파일을 만들면 아래 "() => <div>...</div>" 부분을 
-// "import CafeHome from './components/CafeHome.jsx'" 형태로 바꾸면 됩니다.
-
-const CafeHome = () => <div style={{padding:'20px'}}>CafeHome 페이지 (파일위치: ./components/CafeHome.jsx)</div>;
-const Neighbor = () => <div style={{padding:'20px'}}>Neighbor 페이지 (파일위치: ./components/Neighbor.jsx)</div>;
-const JoinedCafes = () => <div style={{padding:'20px'}}>JoinedCafes 페이지 (파일위치: ./components/JoinedCafes.jsx)</div>;
-const NewPosts = () => <div style={{padding:'20px'}}>NewPosts 페이지 (파일위치: ./components/NewPosts.jsx)</div>;
-const Notifications = () => <div style={{padding:'20px'}}>Notifications 페이지 (파일위치: ./components/Notifications.jsx)</div>;
-const Chat = () => <div style={{padding:'20px'}}>Chat 페이지 (파일위치: ./components/Chat.jsx)</div>;
-const MyCafe = () => <div style={{padding:'20px'}}>MyCafe 페이지 (파일위치: ./components/MyCafe.jsx)</div>;
 
 function App() {
   return (
     <Router>
-      <div className="app-container">
+      <div className="cafe-container">
         {/* 상단 네비게이션 */}
-        <Navibar />
-        
-        <Routes>
-          {/* URL = path / element = Description 명칭 매칭 */}
-          <Route path="/" element={<Home />} />
-          
-          <Route path="/cafe-home" element={<CafeHome />} />
-          <Route path="/neighbor" element={<Neighbor />} />
-          <Route path="/joined-cafes" element={<JoinedCafes />} />
-          <Route path="/new-posts" element={<NewPosts />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/my-cafe" element={<MyCafe />} />
-        </Routes>
+        <header className="cafe-header">
+          <div className="logo">ai잡잡</div>
+          <NaviBar />
+        </header>
+
+        <main className="cafe-main">
+          {/* 왼쪽 사이드바 (사용자 정보/메뉴) */}
+          <aside className="cafe-sidebar">
+            <div className="user-profile">
+              <div className="profile-img"></div>
+              <p>사용자 님</p>
+              <button>카페 글쓰기</button>
+            </div>
+            <ul className="menu-list">
+              <li>전체글보기</li>
+              <li>자유게시판</li>
+            </ul>
+          </aside>
+
+          {/* 오른쪽 컨텐츠 영역 */}
+          <section className="cafe-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/join" element={<Join />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/board/create" element={<CreateBoard />} />
+              <Route path="/list" element={<List />} />
+              <Route path="/list/:id" element={<Board />} />
+              <Route path="/board/edit/:id" element={<EditBoard />} />
+              <Route path="/member" element={<Member />} />
+            </Routes>
+          </section>
+        </main>
       </div>
     </Router>
   );
