@@ -24,7 +24,7 @@ const Member = () => {
     //mount 되었을 때 게시글 목록 가져오기
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        
+
         //관리자라면 리스트를 출력하고
         if (currentUser && currentUser.userId === "admin") {
             setMemberList(createMemberList(users));
@@ -76,15 +76,10 @@ const Member = () => {
     }
 
     const deleteMember = (id) => {
-        const newMembers = users.filter((user)=>user.userId !== id);
+        const preventMembers = JSON.parse(localStorage.getItem("users")) || [];
+        const newMembers = preventMembers.filter((user)=>user.userId !== id);
         setMemberList(createMemberList(newMembers));
         localStorage.setItem("users", JSON.stringify(newMembers));
-    }
-
-    //회원 목록 확인용 버튼(삭제 예정)
-    const changeUser = () => {
-        if (!currentUser) setCurrentUser({userId: "admin", pw: "123456789", email: "admin@office.com"});
-        else setCurrentUser(null);
     }
 
     return (
@@ -111,6 +106,9 @@ const Member = () => {
                                 <input placeholder="검색어를 입력하세요"
                                        className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors"
                                        value={input} onChange={(e) => setInput(e.target.value)}/>
+                                <button onClick={findByCategory}
+                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">검색
+                                </button>
                                 <button onClick={findByCategory}
                                         className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">검색
                                 </button>
@@ -152,10 +150,6 @@ const Member = () => {
                     </div>
                 )
             }
-            <button onClick={changeUser}
-                    className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">관리자모드
-                전환
-            </button>
         </div>
     );
 };
