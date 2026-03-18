@@ -78,12 +78,14 @@ const List = () => {
                             
                             {/* 좋아요 (분할된 칸) */}
                             <span className="col-span-1 text-blue-500 font-medium whitespace-nowrap">
-                                <span className="hidden sm:inline">👍</span> {i.like}
+                                <span className="hidden sm:inline">👍</span> 
+                                {i.like?i.like:0}
                             </span>
                             
                             {/* 싫어요 (분할된 칸) */}
                             <span className="col-span-1 text-red-400 font-medium whitespace-nowrap">
-                                <span className="hidden sm:inline">👎</span> {i.hate}
+                                <span className="hidden sm:inline">👎</span> 
+                                {i.hate?i.hate:0}
                             </span>
 
                             {/* 관리 버튼 (오른쪽 정렬 배치) */}
