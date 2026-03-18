@@ -8,15 +8,7 @@ const Member = () => {
 
     //로그인 한 사용자
     const {currentUser, setCurrentUser} = useCafe();
-    //전체 게시글(개수 카운트 위함)
-    let posts = [
-        {id: "post1", title: "first", content: "first_content", writerId: "1"},
-        {id: "post2", title: "second", content: "second_content", writerId: "2"},
-        {id: "post3", title: "third", content: "third_content", writerId: "3"},
-        {id: "post4", title: "fourth", content: "fourth_content", writerId: "3"},
-        {id: "post5", title: "fifth", content: "fifth_content", writerId: "3"},
-        {id: "post6", title: "sixth", content: "sixth_content", writerId: "3"}
-    ];
+
     //출력할 회원 목록
     const [memberList, setMemberList] = useState([]);
 
@@ -27,17 +19,24 @@ const Member = () => {
     //select 선택값
     const [selected, setSelected] = useState("id");
 
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
+
     //mount 되었을 때 게시글 목록 가져오기
     useEffect(() => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        posts = JSON.parse(localStorage.getItem("posts")) || [];
+        
         //관리자라면 리스트를 출력하고
-        if (currentUser && currentUser.userId === "admin" && currentUser.pw === "admin") {
+        if (currentUser && currentUser.userId === "admin") {
             setMemberList(createMemberList(users));
         } else {
             setMemberList([]); // 관리자가 아니라면 null
         }
     }, [currentUser]);
+
+    useEffect(()=>{
+        const storedUser=JSON.parse(localStorage.getItem('currentUser'));
+        setCurrentUser(storedUser);
+    },[])
 
 
     //카테고리로 맴버 검색
@@ -84,7 +83,7 @@ const Member = () => {
 
     //회원 목록 확인용 버튼(삭제 예정)
     const changeUser = () => {
-        if (!currentUser) setCurrentUser({userId: "admin", pw: "admin", email: "admin@office.com"});
+        if (!currentUser) setCurrentUser({userId: "admin", pw: "123456789", email: "admin@office.com"});
         else setCurrentUser(null);
     }
 
@@ -95,7 +94,7 @@ const Member = () => {
             </div>
             <hr className="border-gray-100 mb-6"/>
             {/*관리자로 로그인했으면*/}
-            {currentUser && currentUser.userId === "admin" && currentUser.pw === "admin"
+            {currentUser && currentUser.userId === "admin"
                 //회원 목록 출력할건데, 일단 등록된 맴버가 있는지 확인
                 ? (users.length > 0
                     ? (
