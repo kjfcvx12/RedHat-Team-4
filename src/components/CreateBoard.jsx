@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useCafe } from './context/CafeContext';
+import { useCafe } from './context/CafeContext';
 const CreateBoard = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const navigate = useNavigate();
 
-    const storedUser = localStorage.getItem('currentUser');
-    const currentUser = storedUser ? JSON.parse(storedUser) : null;
-
-    // const { currentUser } = useCafe();
+    
+    const { currentUser } = useCafe();
     useEffect(() => {
         if (!currentUser) {
             alert("로그인 후 다시 이용해 주세요!");
@@ -43,7 +41,7 @@ const CreateBoard = () => {
         localStorage.setItem("posts", JSON.stringify(posts));
         setTitle("");
         setContent("");
-        navigate('/boardlist');
+        navigate('/list');
     };
 
     return (
