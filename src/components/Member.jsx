@@ -4,12 +4,8 @@ import {useCafe} from "./CafeContextPro.jsx";
 const Member = () => {
 
     //localStorage에 있는 회원 정보 가져오기
-    // const users = JSON.parse(localStorage.getItem("users")) || [];
-    const users = [
-        {userId: "1", pw: "1111", email: "1111@naver.com"},
-        {userId: "2", pw: "2222", email: "2222@goggle.com"},
-        {userId: "3", pw: "3333", email: "3333@daum.net"}
-    ];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
     //로그인 한 사용자
     const {currentUser, setCurrentUser} = useCafe();
     //전체 게시글(개수 카운트 위함)
