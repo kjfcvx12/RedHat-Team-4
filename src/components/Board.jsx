@@ -8,6 +8,7 @@ const Board = () => {
     const [post, setPost] = useState({});
     const [isLike, setIsLike] = useState(false);
     const [isHate, setIsHate] = useState(false);
+    const [num,setNum]=useState(1);
 
     const [currentUser,setCurrnetUser]=useState(
             JSON.parse(localStorage.getItem("currentUser"))||null
@@ -29,6 +30,20 @@ const Board = () => {
         const uppost = posts.map((p) => p.id === parseInt(id) ? { ...post, like: like, hate: hate } : p);
         localStorage.setItem('posts', JSON.stringify(uppost));
     }, [like, hate, id, post]);
+
+    const onLike=()=>{
+        setIsLike(!isLike);
+        isLike?setNum(1):setNum(-1);
+        setLike((i) => i + num); 
+    }
+
+    const onHate=()=>{
+        setIsHate(!isHate);
+        isHate?setNum(1):setNum(-1);
+        setHate((i) => i + num); 
+    }
+
+
 
     return (
         /* 전체 화면 중앙 정렬 */
@@ -53,8 +68,7 @@ const Board = () => {
                 {/* 좋아요/싫어요 버튼: 왼쪽 정렬 */}
                 <div className="flex items-center gap-4 mt-4">
                     <button 
-                        onClick={() => { setLike((i) => i + 1); setIsLike(true); }}
-                        disabled={isLike}
+                        onClick={() => onLike()}
                         className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${isLike ? 'text-blue-500 bg-blue-50' : 'text-gray-600 hover:bg-gray-100'}`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
@@ -64,8 +78,7 @@ const Board = () => {
                     </button>
 
                     <button 
-                        onClick={() => { setHate((i) => i + 1); setIsHate(true); }}
-                        disabled={isHate}
+                        onClick={() => onHate()}
                         className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${isHate ? 'text-red-500 bg-red-50' : 'text-gray-600 hover:bg-gray-100'}`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
