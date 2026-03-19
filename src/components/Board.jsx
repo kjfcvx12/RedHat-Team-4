@@ -93,13 +93,11 @@ const Board = () => {
                 
                 {/* 제목 섹션: 둥근 테두리 */}
                 <div className="mb-4 p-4 border-2 border-gray-200 rounded-lg">
-                    <h3 className="text-sm font-semibold text-gray-500 mb-1">제목</h3>
                     <p className="text-lg text-gray-900">{post.title}</p>
                 </div>
 
                 {/* 내용 섹션: 둥근 테두리 + 하단 7줄 여유(pb-28) */}
                 <div className="mb-6 p-4 border-2 border-gray-200 rounded-lg">
-                    <h3 className="text-sm font-semibold text-gray-500 mb-1">내용</h3>
                     <div className="text-base text-gray-700 pb-28">
                         {post.content}
                     </div>
@@ -128,13 +126,13 @@ const Board = () => {
                     </button>
 
                     <div className="ml-auto">
-                            {currentUser&&currentUser.userId=== post.writerId && (
-                                <Link to={`/board/edit/${id}`}>
-                                    <button className="flex items-center justify-center px-6 py-2 bg-gray-800 text-white text-sm font-bold rounded-full hover:bg-gray-700 transition-all shadow-sm active:scale-95 border border-transparent">
-                                        수정
-                                    </button>
-                                </Link>
-                            )}
+                        {currentUser&&currentUser.userId=== post.writerId && (
+                            <Link to={`/board/edit/${id}`}>
+                                <button className="flex items-center justify-center px-6 py-2 bg-gray-800 text-white text-sm font-bold rounded-full hover:bg-gray-700 transition-all shadow-sm active:scale-95 border border-transparent">
+                                    수정
+                                </button>
+                            </Link>
+                        )}
 
                     </div>
                     <Link to={'/list'}>
@@ -143,8 +141,6 @@ const Board = () => {
                         </button>
                     </Link>
                 </div>
-
-
             </div>
         </div>
     );
