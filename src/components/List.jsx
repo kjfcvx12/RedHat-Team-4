@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCafe } from './CafeContextPro';
 
 const List = () => {
     const [posts, setPosts] = useState(JSON.parse(localStorage.getItem("posts")) || []);
-    const [currentUser, setCurrnetUser] = useState(JSON.parse(localStorage.getItem("currentUser")) || null);
-
+    const {  currentUser } = useCafe();
+ 
     const [find, setFind] = useState('id');
     const [input, setInput] = useState('');
     const [findPost, setFindPost] = useState([]);
