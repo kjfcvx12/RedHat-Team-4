@@ -23,7 +23,7 @@ const Join = () => {
             return;
         }
 
-        if (email==false){
+        if (email===false){
             alert('이메일 입력해주세요!!!')
             return;
             
