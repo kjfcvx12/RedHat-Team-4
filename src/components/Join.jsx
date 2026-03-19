@@ -5,6 +5,7 @@ const Join = () => {
 
     const [userId,setUserId]=useState('');
     const [pw,setPw]=useState('');
+    const [pw2,setPw2]=useState('');
     const [email,setEmail]=useState(null);
     const navigator=useNavigate();
 
@@ -23,10 +24,14 @@ const Join = () => {
             return;
         }
 
+        if (pw!==pw2){
+            alert('비밀번호를 다시 확인해주세요~');
+            return;
+        }
+
         if (email===null){
             alert('이메일 입력해주세요!!!')
             return;
-            
         }
 
         let users=JSON.parse(localStorage.getItem("users")) || [];
@@ -69,6 +74,14 @@ const Join = () => {
                     value={pw}
                     onChange={(e)=>setPw(e.target.value)}
                     placeholder='비밀번호 8자 이상 입력'
+                    className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+                />
+
+                <input
+                    type='password'
+                    value={pw2}
+                    onChange={(e)=>setPw2(e.target.value)}
+                    placeholder='비밀번호 확인'
                     className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
                 />
 
