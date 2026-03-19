@@ -93,7 +93,7 @@ const Member = () => {
     }
 
     return (
-        <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10 text-gray-800">
+        <main className="max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
             </div>
@@ -162,7 +162,7 @@ const Member = () => {
                     </div>
                 )
             }
-        </div>
+        </main>
     );
 };
 

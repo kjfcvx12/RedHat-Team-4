@@ -58,14 +58,14 @@ const CreateBoard = () => {
 
     return (
       
-        <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10 text-gray-800">
+        <div className="max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
             
        
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">게시글 작성</h1>
                 <button 
                     onClick={() => navigate('/list')}
-                    className="bg-gray-600 text-white px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-all shadow-md active:scale-95"
+                    className="bg-gray-600 text-white px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-all active:scale-95"
                 >
                     목록으로
                 </button>
@@ -97,7 +97,7 @@ const CreateBoard = () => {
                 </div>
 
               
-                <div className="flex justify-center items-center gap-3 p-6 bg-gray-50 rounded-2xl shadow-inner mt-4">
+                <div className="flex justify-center items-center gap-3 p-6 bg-gray-50 rounded-2xl mt-4">
                     <button 
                         type="button"
                         onClick={() => navigate('/list')}
