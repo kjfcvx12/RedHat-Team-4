@@ -12,13 +12,12 @@ body {
   background-color: #f2f2f2;
   font-family: 'Apple SD Gothic Neo', sans-serif;
 }
-
+/*
 .cafe-container {
   max-width: 1080px;
   margin: 0 auto;
 }
 
-/* 상단 헤더: 네비게이션 오른쪽 정렬 */
 .cafe-header {
   display: flex;
   justify-content: space-between;
@@ -46,7 +45,6 @@ body {
   font-size: 14px;
 }
 
-/* 메인 레이아웃: 왼쪽 사이드바, 오른쪽 컨텐츠 */
 .cafe-main {
   display: flex;
   margin-top: 20px;
@@ -90,4 +88,4 @@ body {
   padding: 20px;
   border: 1px solid #ddd;
   min-height: 500px;
-}
+}*/

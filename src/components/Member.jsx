@@ -95,7 +95,7 @@ const Member = () => {
     }
 
     return (
-        <main className="max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
+        <main className="min-h-screen max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
             </div>
@@ -132,9 +132,9 @@ const Member = () => {
                                     className="text-sm font-bold text-green-500">{memberList ? memberList.length : 0}</span>
                             </div>
                             {/*맴버 목록*/}
-                            <div className="rounded-lg overflow-hidden border border-gray-200">
+                            <div className="rounded-lg overflow-hidden border border-gray-200 hover:bg-gray-50">
                                 <table className="w-full text-sm">
-                                    <thead className="bg-gray-50 border-b border-gray-100">
+                                    <thead className="bg-gray-50 border-b border-gray-200">
                                     <tr className="text-left text-gray-600">
                                         {categories.map((category, index) => (
                                             <th className="px-4 py-3 font-semibold " key={index}>{category}</th>

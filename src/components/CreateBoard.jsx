@@ -51,7 +51,6 @@ const CreateBoard = () => {
             title: title.trim(),
             content: content.trim(),
             writerId: currentUser.userId,
-          
         };
 
         if (newPost.title === "" || newPost.content === "") {
@@ -67,10 +66,7 @@ const CreateBoard = () => {
     };
 
     return (
-      
-        <div className="max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
-            
-       
+        <div className="min-h-screen max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">게시글 작성</h1>
                 <button 
@@ -82,8 +78,6 @@ const CreateBoard = () => {
             </div>
 
             <form onSubmit={onSubmit1} className="flex flex-col gap-6">
-                
-         
                 <div className="flex flex-col gap-2">
                     <label className="text-sm font-bold text-gray-600 ml-1">제목</label>
                     <input
@@ -94,8 +88,6 @@ const CreateBoard = () => {
                         className="w-full border border-gray-300 rounded-lg px-5 py-3 text-base focus:ring-2 focus:ring-green-500 outline-none transition-shadow placeholder:text-gray-300"
                     />
                 </div>
-
-              
                 <div className="flex flex-col gap-2">
                     <label className="text-sm font-bold text-gray-600 ml-1">내용</label>
                     <textarea
@@ -105,8 +97,6 @@ const CreateBoard = () => {
                         className="w-full h-[500px] border border-gray-300 rounded-lg px-5 py-4 text-base focus:ring-2 focus:ring-green-500 outline-none transition-shadow resize-none placeholder:text-gray-300 leading-relaxed"
                     />
                 </div>
-
-              
                 <div className="flex justify-center items-center gap-3 p-6 bg-gray-50 rounded-2xl mt-4">
                     <button 
                         type="button"
@@ -122,7 +112,6 @@ const CreateBoard = () => {
                         게시글 등록
                     </button>
                 </div>
-
             </form>
         </div>
     );

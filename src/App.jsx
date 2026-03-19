@@ -15,17 +15,15 @@ import { Link } from 'react-router-dom';
 function App() {
   return (
     <Router>
-      <div className="cafe-container">
+      <div className="max-w-[1080px] mx-auto border border-gray-300">
         {/* 상단 네비게이션 */}
-        <header className="cafe-header">
-          <Link to="/"><div className="logo">Biceps</div></Link>
+        <header className="flex justify-between items-center px-5 py-5 bg-white border-b border-gray-300">
+          <Link to="/"><div className="text-2xl font-bold text-[#2db44b]">Biceps</div></Link>
           <NaviBar />
         </header>
 
-      
-
           {/* 오른쪽 컨텐츠 영역 */}
-          <section className="cafe-content">
+          <section className="bg-white p-5 min-h-[500px]">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/join" element={<Join />} />
@@ -37,7 +35,6 @@ function App() {
               <Route path="/member" element={<Member />} />
             </Routes>
           </section>
-
       </div>
     </Router>
   );

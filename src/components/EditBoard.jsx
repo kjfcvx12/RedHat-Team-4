@@ -41,7 +41,7 @@ const EditBoard = () => {
     }
 
     return (
-        <form className="max-w-5xl mx-auto px-6 py-6" onSubmit={onSubmit}>
+        <form className="min-h-screen max-w-5xl mx-auto px-6 py-6" onSubmit={onSubmit}>
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-xl font-semibold text-gray-600">카페 글쓰기</h3>
                 <div className="flex gap-2">
