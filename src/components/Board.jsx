@@ -8,7 +8,8 @@ const Board = () => {
     const [post, setPost] = useState({});
     const [isLike, setIsLike] = useState(false);
     const [isHate, setIsHate] = useState(false);
-    const [num,setNum]=useState(1);
+    const [numL,setNumL]=useState(1);
+    const [numH,setNumH]=useState(1);
 
     const [currentUser,setCurrnetUser]=useState(
             JSON.parse(localStorage.getItem("currentUser"))||null
@@ -33,14 +34,14 @@ const Board = () => {
 
     const onLike=()=>{
         setIsLike(!isLike);
-        isLike?setNum(1):setNum(-1);
-        setLike((i) => i + num); 
+        isLike?setNumL(1):setNumL(-1);
+        setLike((i) => i + numL); 
     }
 
     const onHate=()=>{
         setIsHate(!isHate);
-        isHate?setNum(1):setNum(-1);
-        setHate((i) => i + num); 
+        isHate?setNumH(1):setNumH(-1);
+        setHate((i) => i + numH); 
     }
 
 
