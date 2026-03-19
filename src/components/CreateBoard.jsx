@@ -24,7 +24,7 @@ const CreateBoard = () => {
             alert("로그인 후 다시 이용해 주세요!");
             navigate('/login');
         }
-    }, [currentUser, navigate]);
+    }, [currentUser]);
 
     const onSubmit1 = (e) => {
         e.preventDefault();
