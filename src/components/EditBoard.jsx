@@ -31,7 +31,7 @@ const EditBoard = () => {
         //수정한 내용을 반영하여 방금 localStorage에서 받아온 게시글 배열 갱신(수정 시에도 첫 작성자는 유지되도록)
         storedPosts = storedPosts.map((p) => p.id === parseInt(id) ? {...post, writerId:p.writerId} : p);
         //localStorage에 갱신한 게시글 배열 저장
-        localStorage.setItem("posts", storedPosts);
+        localStorage.setItem("posts", JSON.stringify(storedPosts));
         //수정 후 게시글 목록으로 복귀
         navigator("/list");
     }

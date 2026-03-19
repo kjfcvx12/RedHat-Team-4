@@ -32,10 +32,10 @@ const Member = () => {
     }, [currentUser]);
 
     //mount 되었을 때 현재 로그인 한 사용자 가져오기
-    useEffect(()=>{
-        const storedUser=JSON.parse(localStorage.getItem('currentUser'));
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem('currentUser'));
         setCurrentUser(storedUser);
-    },[])
+    }, [])
 
     //카테고리로 맴버 검색
     const findByCategory = () => {
@@ -63,7 +63,7 @@ const Member = () => {
                 <td className="px-4 py-3">{user.email}</td>
                 <td className="px-4 py-3">{posts.filter(post => post.writerId === user.userId).length}</td>
                 <td>
-                    <button onClick={()=>deleteMember(user.userId)}
+                    <button onClick={() => deleteMember(user.userId)}
                             className="px-5 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded transition-colors">삭제
                     </button>
                 </td>
@@ -73,7 +73,7 @@ const Member = () => {
 
     const deleteMember = (id) => {
         const preventMembers = JSON.parse(localStorage.getItem("users")) || [];
-        const newMembers = preventMembers.filter((user)=>user.userId !== id);
+        const newMembers = preventMembers.filter((user) => user.userId !== id);
         setMemberList(createMemberList(newMembers));
         localStorage.setItem("users", JSON.stringify(newMembers));
     }
@@ -89,7 +89,9 @@ const Member = () => {
 
     //검색창에서 enter키 눌러도 검색
     const keyDownEvent = (e) => {
-        if (e.keyCode === 13) {findByCategory()}
+        if (e.keyCode === 13) {
+            findByCategory()
+        }
     }
 
     return (
@@ -97,7 +99,6 @@ const Member = () => {
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
             </div>
-            <hr className="border-gray-100 mb-6"/>
             {/*관리자로 로그인했으면*/}
             {currentUser && currentUser.userId === "admin"
                 //회원 목록 출력할건데, 일단 등록된 맴버가 있는지 확인
@@ -131,27 +132,31 @@ const Member = () => {
                                     className="text-sm font-bold text-green-500">{memberList ? memberList.length : 0}</span>
                             </div>
                             {/*맴버 목록*/}
-                            <table className="w-full text-sm">
-                                <thead className="bg-white border-b border-gray-100">
-                                <tr className="text-left text-gray-600">
-                                    {categories.map((category, index) => (
-                                        <th className="px-4 py-3 font-semibold" key={index}>{category}</th>
-                                    ))}
-                                </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100">
-                                {/*실제 맴버 목록 출력 위치*/}
-                                {memberList.length > 0 ? (memberList) : (
-                                    <tr>
-                                        <td colSpan="5" className="text-align: center; padding: 50px 0;">
-                                            <div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
-                                                검색 결과와 일치하는 회원이 존재하지 않습니다.
-                                            </div>
-                                        </td>
+                            <div className="rounded-lg overflow-hidden border border-gray-200">
+                                <table className="w-full text-sm">
+                                    <thead className="bg-gray-50 border-b border-gray-100">
+                                    <tr className="text-left text-gray-600">
+                                        {categories.map((category, index) => (
+                                            <th className="px-4 py-3 font-semibold " key={index}>{category}</th>
+                                        ))}
+                                        <th></th>
                                     </tr>
-                                )}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100">
+                                    {/*실제 맴버 목록 출력 위치*/}
+                                    {memberList.length > 0 ? (memberList) : (
+                                        <tr>
+                                            <td colSpan="5" className="text-center py-[50px]">
+                                                <div
+                                                    className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
+                                                    검색 결과와 일치하는 회원이 존재하지 않습니다.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                    </tbody>
+                                </table>
+                            </div>
                         </>)
                     : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
                         회원이 존재하지 않습니다.
