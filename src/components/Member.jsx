@@ -64,7 +64,7 @@ const Member = () => {
                 <td className="px-4 py-3">{posts.filter(post => post.writerId === user.userId).length}</td>
                 <td>
                     <button onClick={()=>deleteMember(user.userId)}
-                        className="px-5 py-1.5 bg-red-500 hover:bg-red-400 text-white text-sm font-medium rounded-md transition-colors">삭제
+                        className="px-5 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded transition-colors">삭제
                     </button>
                 </td>
             </tr>
@@ -93,9 +93,9 @@ const Member = () => {
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-6 py-6">
-            <div className="mb-4">
-                <h3 className="text-xl font-semibold text-gray-600">맴버 목록</h3>
+        <div className="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10 text-gray-800">
+            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+                <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
             </div>
             <hr className="border-gray-100 mb-6"/>
             {/*관리자로 로그인했으면*/}
@@ -109,19 +109,19 @@ const Member = () => {
                                 className="flex items-center gap-2 mb-4 p-4 bg-white border border-gray-100 rounded-md">
                                 <span className="text-sm font-medium text-gray-600 mr-2">맴버 검색</span>
                                 <select value={selected} onChange={(e) => setSelected(e.target.value)}
-                                        className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors">
+                                        className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors">
                                     <option value="id">별명(아이디)</option>
                                     <option value="email">이메일</option>
                                 </select>
                                 <input placeholder="검색어를 입력하세요"
-                                       className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors"
+                                       className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors"
                                        value={input} onChange={(e) => setInput(e.target.value)}
                                         onKeyDown={keyDownEvent}/>
                                 <button onClick={findByCategory}
-                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">검색
+                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded transition-colors">검색
                                 </button>
                                 <button onClick={cancelFind}
-                                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-500 text-white text-sm font-medium rounded-md transition-colors">취소
+                                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded transition-colors">취소
                                 </button>
                             </div>
                             {/*맴버 수*/}

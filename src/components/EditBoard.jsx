@@ -46,12 +46,12 @@ const EditBoard = () => {
                 <h3 className="text-xl font-semibold text-gray-600">카페 글쓰기</h3>
                 <div className="flex gap-2">
                     <button
-                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-500 text-white text-sm font-medium rounded-md transition-colors"
+                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded transition-colors"
                         type="button" onClick={editCancel}>
                         취소
                     </button>
                     <button
-                        className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors"
+                        className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded transition-colors"
                         type="submit">
                         등록
                     </button>
