@@ -23,6 +23,12 @@ const Join = () => {
             return;
         }
 
+        if (email==false){
+            alert('이메일 입력해주세요!!!')
+            return;
+            
+        }
+
         let users=JSON.parse(localStorage.getItem("users")) || [];
         
         if (users.some((e)=> e.userId === userId)){
