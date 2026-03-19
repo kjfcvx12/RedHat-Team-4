@@ -5,7 +5,7 @@ const Join = () => {
 
     const [userId,setUserId]=useState('');
     const [pw,setPw]=useState('');
-    const [email,setEmail]=useState('');
+    const [email,setEmail]=useState(null);
     const navigator=useNavigate();
 
     const onJoin=(e)=>{
@@ -23,7 +23,7 @@ const Join = () => {
             return;
         }
 
-        if (email===false){
+        if (email===null){
             alert('이메일 입력해주세요!!!')
             return;
             
