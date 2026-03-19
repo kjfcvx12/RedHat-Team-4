@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NaviBar from './components/NaviBar';
 import Home from './components/Home';
-import Login from './components/login'; // 명세서 기준 소문자 l
+import Login from './components/Login'; // 명세서 기준 소문자 l
 import Join from './components/Join'; // 명세서 기준 대문자 J
 import CreateBoard from './components/CreateBoard';
 import List from './components/List';
@@ -10,6 +10,7 @@ import Board from './components/Board';
 import EditBoard from './components/EditBoard';
 import Member from './components/Member';
 import './App.css';
+import { Link } from 'react-router-dom';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <div className="cafe-container">
         {/* 상단 네비게이션 */}
         <header className="cafe-header">
-          <div className="logo">Biceps</div>
+          <Link to="/"><div className="logo">Biceps</div></Link>
           <NaviBar />
         </header>
 

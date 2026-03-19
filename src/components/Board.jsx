@@ -3,16 +3,17 @@ import { Link, useParams } from 'react-router-dom';
 import { useCafe } from './CafeContextPro';
 
 const Board = () => {
-    const { like, setLike, hate, setHate } = useCafe();
+    const { like, setLike, hate, setHate, currentUser } = useCafe();
     const { id } = useParams();
     const [post, setPost] = useState({});
     const [isLike, setIsLike] = useState(false);
     const [isHate, setIsHate] = useState(false);
-    const [num,setNum]=useState(1);
+    const [numL,setNumL]=useState(1);
+    const [numH,setNumH]=useState(1);
 
-    const [currentUser,setCurrnetUser]=useState(
-            JSON.parse(localStorage.getItem("currentUser"))||null
-    );
+    // const [currentUser,setCurrnetUser]=useState(
+    //         JSON.parse(localStorage.getItem("currentUser"))||null
+    // );
 
     useEffect(() => {
         const posts = JSON.parse(localStorage.getItem('posts')) || [];
@@ -32,15 +33,19 @@ const Board = () => {
     }, [like, hate, id, post]);
 
     const onLike=()=>{
-        setIsLike(!isLike);
-        isLike?setNum(1):setNum(-1);
-        setLike((i) => i + num); 
+        if(currentUser){
+            setIsLike(!isLike);
+            isLike?setNumL(1):setNumL(-1);
+            setLike((i) => i + numL);
+        }
     }
 
     const onHate=()=>{
-        setIsHate(!isHate);
-        isHate?setNum(1):setNum(-1);
-        setHate((i) => i + num); 
+        if(currentUser){
+            setIsHate(!isHate);
+            isHate?setNumH(1):setNumH(-1);
+            setHate((i) => i + numH); 
+        }
     }
 
 

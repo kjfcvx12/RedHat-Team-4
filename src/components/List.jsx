@@ -47,64 +47,59 @@ const List = () => {
             <ul className="mb-8 border border-gray-200 rounded-lg overflow-hidden">
                 {/* 헤더 영역: col-span 합을 12로 유지 */}
                 <li className="grid grid-cols-12 gap-2 py-4 px-6 bg-gray-50 font-bold text-gray-600 text-center border-b border-gray-200 text-sm">
-                    <span className="col-span-1">번호</span>
-                    <span className="col-span-4 text-left px-2">제목</span>
+                    <span className="col-span-2">번호</span>
+                    <span className="col-span-3 text-left px-2">제목</span>
                     <span className="col-span-1">좋아요</span>
-                    <span className="col-span-1">싫어요</span>
-                    <span className="col-span-2">작성자</span>
-                    <span className="col-span-1.5 col-span-2">작성일</span>
-                    <span className="col-span-1">관리</span>
+                    <span className="col-span-1 text-red-400">싫어요</span>
+                    <span className="col-span-1">작성자</span> {/* 2 -> 1로 축소 */}
+                    <span className="col-span-2 text-center">작성일</span> {/* 간격 유지 */}
+                    <span className="col-span-2">관리</span> {/* 1 -> 2로 확장 */}
                 </li>
-                
-                {(findNum ? findPost : posts).length > 0 ? (
-                    (findNum ? findPost : posts).map((i) => (
-                        <li key={i.id} className="grid grid-cols-12 gap-2 py-4 px-6 items-center text-center border-b border-gray-50 hover:bg-blue-50/30 transition-colors last:border-0">
-                            {/* 번호 */}
-                            <span className="col-span-1 text-xs text-gray-400 font-mono truncate">
-                                {i.id}
-                            </span>
-                            
-                            {/* 제목 */}
-                            <Link to={`/list/${i.id}`} className="col-span-4 text-left font-semibold text-gray-700 hover:text-blue-600 truncate px-2 transition-colors">
-                                {i.title}
-                            </Link>
-                            
-                            {/* 좋아요/싫어요 */}
-                            <span className="col-span-1 text-blue-500 font-medium text-xs">👍 {i.like || 0}</span>
-                            <span className="col-span-1 text-red-400 font-medium text-xs">👎 {i.hate || 0}</span>
 
-                            {/* 작성자: 배지 스타일로 강조 */}
-                            <span className="col-span-2 text-sm text-gray-600 font-medium truncate">
-                                <span className="bg-gray-100 px-2 py-1 rounded text-[11px] text-gray-500 mr-1 hidden lg:inline">ID</span>
-                                {i.writerId}
-                            </span>
-                            
-                            {/* 작성일: 연/월/일만 나오도록 스타일링 */}
-                            <span className="col-span-2 text-xs text-gray-400 font-mono">
-                                {i.date}
-                            </span>
-                            
-                            {/* 관리 버튼: 작성자 본인 혹은 관리자만 노출 */}
-                            <div className="col-span-1 flex justify-center gap-1">
-                                {currentUser && (currentUser.userId === i.writerId || currentUser.userId === 'admin') ? (
+                {/* 데이터 영역 */}
+                { (findNum ? findPost : posts).map((i) => (
+                    <li key={i.id} className="grid grid-cols-12 gap-2 py-4 px-6 items-center text-center border-b border-gray-50 hover:bg-blue-50/30 transition-colors last:border-0">
+                        <span className="col-span-2 text-xs text-gray-400 font-mono truncate">{i.id}</span>
+                        
+                        <Link to={`/list/${i.id}`} className="col-span-3 text-left font-semibold text-gray-700 hover:text-blue-600 truncate px-2 transition-colors">
+                            {i.title}
+                        </Link>
+                        
+                        <span className="col-span-1 text-blue-500 font-medium text-xs">👍 {i.like || 0}</span>
+                        <span className="col-span-1 text-red-400 font-medium text-xs">👎 {i.hate || 0}</span>
+
+                        {/* 작성자: 좁은 공간을 위해 truncate 유지 */}
+                        <span className="col-span-1 text-sm text-gray-600 font-medium truncate">
+                            {i.writerId}
+                        </span>
+                        
+                        <span className="col-span-2 text-xs text-gray-400 font-mono">
+                            {i.date}
+                        </span>
+                        
+                        {/* 관리 버튼: col-span-2로 확장하여 버튼 정렬 개선 */}
+                        <div className="col-span-2 flex justify-center gap-2">
+                            {currentUser && (currentUser.userId === i.writerId || currentUser.userId === 'admin') ? (
+                                <>
+                                    {currentUser.userId === i.writerId && (
+                                        <Link to={`/board/edit/${i.id}`}>
+                                            <button className="bg-gray-600 text-white px-3 py-1.5 text-xs rounded hover:bg-gray-700 transition-all whitespace-nowrap">
+                                                수정
+                                            </button>
+                                        </Link>
+                                    )}
                                     <button 
                                         onClick={() => handleDelete(i.id)}
-                                        className="text-red-400 hover:text-red-600 text-xs font-bold p-1 transition-colors"
-                                        title="삭제"
-                                    >
+                                        className="bg-red-500 text-white px-3 py-1.5 text-xs rounded hover:bg-red-600 transition-all whitespace-nowrap">
                                         삭제
                                     </button>
-                                ) : (
-                                    <span className="text-gray-200">-</span>
-                                )}
-                            </div>
-                        </li>
-                    ))
-                ) : (
-                    <div className="py-32 text-center text-gray-400 bg-gray-50">
-                        {findNum ? `"${input}" 검색 결과가 없습니다.` : '첫 번째 게시물을 작성해 보세요!'}
-                    </div>
-                )}
+                                </>
+                            ) : (
+                                <span className="text-gray-200">-</span>
+                            )}
+                        </div>
+                    </li>
+                ))}
             </ul>
 
             {/* 검색창 영역 (생략 없음) */}
