@@ -9,10 +9,10 @@ const Home = () => {
 
   return (
     // 레이아웃 컨테이너: flex, 간격, 패딩, 최대너비, 중앙정렬
-    <div className="flex gap-5 p-5 max-w-[1080px] mx-auto bg-gray-50 min-h-screen">
+    <main className="flex gap-5 p-5 max-w-[1080px] mx-auto bg-gray-50 min-h-screen">
       
       {/* 오른쪽 메인 게시판 */}
-      <main className="flex-grow bg-white p-5 border border-gray-200 shadow-sm rounded-sm">
+      <div className="flex-grow bg-white p-5 border border-gray-200 shadow-sm rounded-sm">
         <h3 className="text-lg font-bold border-b-2 border-gray-800 pb-3 mb-4">
           전체글보기
         </h3>
@@ -58,8 +58,8 @@ const Home = () => {
             )}
           </tbody>
         </table>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 
