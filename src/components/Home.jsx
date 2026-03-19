@@ -1,66 +1,62 @@
 // src/components/Home.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [posts, setPosts] = useState(
+    JSON.parse(localStorage.getItem("posts")) || []
+  );
 
   return (
-    <div className="main-layout" style={{ display: 'flex', gap: '20px', padding: '20px', maxWidth: '1080px', margin: '0 auto' }}>
-      {/* 왼쪽 사이드바 */}
-      <aside style={{ width: '200px', flexShrink: 0 }}>
-        <div style={{ backgroundColor: '#fff', padding: '15px', border: '1px solid #e5e7eb', borderRadius: '4px' }}>
-          
-          {isLoggedIn ? (
-            /* 로그인 후 화면 */
-            <div className="profile-box">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                <div style={{ width: '40px', height: '40px', backgroundColor: '#f3f4f6', borderRadius: '50%', border: '1px solid #eee' }}></div>
-                <div>
-                  <strong style={{ fontSize: '14px' }}>님</strong>
-                  <p style={{ fontSize: '11px', color: '#00c73c', margin: 0 }}>내 소식 0 </p>
-                </div>
-              </div>
-              <button 
-                onClick={() => setIsLoggedIn(false)}
-                style={{ width: '100%', padding: '5px', backgroundColor: '#fff', border: '1px solid #ddd', fontSize: '12px', cursor: 'pointer', marginBottom: '10px' }}
-              >
-                로그아웃
-              </button>
-              <button style={{ width: '100%', padding: '8px', backgroundColor: '#00c73c', color: '#fff', border: 'none', borderRadius: '2px', cursor: 'pointer', fontWeight: 'bold' }}>
-                카페 글쓰기
-              </button>
-            </div>
-          ) : (
-            /* 로그인 전 화면 */
-            <div className="login-box">
-              <p style={{ fontSize: '11px', marginBottom: '10px', color: '#666' }}>네이버 카페를 더 편리하게 이용하세요.</p>
-              <button 
-                onClick={() => setIsLoggedIn(true)}
-                style={{ width: '100%', padding: '10px', backgroundColor: '#00c73c', color: '#fff', border: 'none', borderRadius: '2px', cursor: 'pointer', fontWeight: 'bold' }}
-              >
-                NAVER 로그인
-              </button>
-              <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#888' }}>
-                <span>아이디 찾기</span>
-                <span style={{ fontWeight: 'bold' }}>회원가입</span>
-              </div>
-            </div>
-          )}
-        </div>
-      </aside>
-
+    // 레이아웃 컨테이너: flex, 간격, 패딩, 최대너비, 중앙정렬
+    <div className="flex gap-5 p-5 max-w-[1080px] mx-auto bg-gray-50 min-h-screen">
+      
       {/* 오른쪽 메인 게시판 */}
-      <main style={{ flexGrow: 1, backgroundColor: '#fff', padding: '20px', border: '1px solid #e5e7eb' }}>
-        <h3 style={{ borderBottom: '2px solid #333', paddingBottom: '10px', marginBottom: '15px' }}>전체글보기</h3>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+      <main className="flex-grow bg-white p-5 border border-gray-200 shadow-sm rounded-sm">
+        <h3 className="text-lg font-bold border-b-2 border-gray-800 pb-3 mb-4">
+          전체글보기
+        </h3>
+        
+        <table className="w-full border-collapse text-[13px] table-fixed">
           <thead>
-            <tr style={{ borderBottom: '1px solid #eee', color: '#888' }}>
-              <th style={{ padding: '10px', textAlign: 'left' }}>제목</th>
-              <th style={{ width: '80px' }}>작성자</th>
-              <th style={{ width: '100px' }}>작성일</th>
+            <tr className="border-b border-gray-200 text-gray-500 bg-gray-50">
+              {/* 14자리 숫자를 수용하기 위해 너비를 w-40(160px)으로 대폭 확장 */}
+              <th className="w-40 py-3 font-semibold text-center">번호</th>
+              {/* 제목: pl-4(왼쪽 간격)를 주어 번호와 시각적으로 분리 */}
+              <th className="py-3 font-semibold text-center pl-4 pr-6">제목</th>
+              <th className="w-24 py-3 font-semibold text-center">작성자</th>
+              <th className="w-28 py-3 font-semibold text-center">작성일</th>
             </tr>
           </thead>
-      
+          
+          <tbody>
+            {posts.length > 0 ? (
+              posts.map((i) => (
+                <tr key={i.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                  {/* 번호 영역: 14자리를 위해 충분한 너비 확보 */}
+                  <td className="py-3 text-center text-gray-400 px-2 w-40 truncate">
+                    {i.id}
+                  </td>
+                  
+                  {/* 제목 영역: pl-20으로 왼쪽 간격을 크게 벌려 중앙 쪽으로 밀어줌 */}
+                  <td className="py-3 pl-20 pr-6 truncate">
+                    <Link to={`/list/${i.id}`} className="hover:underline text-gray-800 font-medium inline-block">
+                      {i.title}
+                    </Link>
+                  </td>
+                  
+                  <td className="py-3 text-center text-gray-600 truncate">{i.writerId}</td>
+                  <td className="py-3 text-center text-gray-400">{i.date}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="py-20 text-center text-gray-400">
+                  작성된 게시글이 없습니다.
+                </td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </main>
     </div>

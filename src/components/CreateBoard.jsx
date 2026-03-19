@@ -36,8 +36,18 @@ const CreateBoard = () => {
         }
 
         let posts = JSON.parse(localStorage.getItem("posts")) || [];
+
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(now.getDate()).padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${day}`;
+
+
         const newPost = {
             id: Date.now(),
+            date:formattedDate,
             title: title.trim(),
             content: content.trim(),
             writerId: currentUser.userId,
