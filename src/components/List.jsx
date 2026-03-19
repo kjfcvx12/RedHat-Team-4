@@ -11,6 +11,10 @@ const List = () => {
     const [findNum, setFindNum] = useState(false);
 
     const handleDelete = (id) => {
+        let del=confirm("삭제하시겠습니까?");
+
+        if(!del) return
+
         const updated = posts.filter((i) => i.id !== id)
         localStorage.setItem('posts', JSON.stringify(updated));
         setPosts(updated);
