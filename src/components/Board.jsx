@@ -49,7 +49,7 @@ const Board = () => {
     return (
         /* 전체 화면 중앙 정렬 */
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
-            <div className="w-full max-w-2xl bg-white shadow-md rounded-xl p-8 border border-gray-200">
+            <div className="w-full max-w-2xl bg-white rounded-xl p-8 border border-gray-200">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">게시글</h2>
                 
                 {/* 제목 섹션: 둥근 테두리 */}
@@ -96,7 +96,7 @@ const Board = () => {
                                     </button>
                                 </Link>
                             )}
-                            
+
                     </div>
                     <Link to={'/list'}>
                         <button className="flex items-center justify-center px-6 py-2 bg-gray-800 text-white text-sm font-bold rounded-full hover:bg-gray-700 transition-all shadow-sm active:scale-95 border border-transparent">
@@ -105,7 +105,7 @@ const Board = () => {
                     </Link>
                 </div>
 
-                
+
             </div>
         </div>
     );
