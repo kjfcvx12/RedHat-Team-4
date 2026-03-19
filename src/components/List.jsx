@@ -47,8 +47,8 @@ const List = () => {
             <ul className="mb-8 border border-gray-200 rounded-lg overflow-hidden">
                 {/* 헤더 영역: col-span 합을 12로 유지 */}
                 <li className="grid grid-cols-12 gap-2 py-4 px-6 bg-gray-50 font-bold text-gray-600 text-center border-b border-gray-200 text-sm">
-                    <span className="col-span-1">번호</span>
-                    <span className="col-span-4 text-left px-2">제목</span>
+                    <span className="col-span-2">번호</span>
+                    <span className="col-span-3 text-left px-2">제목</span>
                     <span className="col-span-1">좋아요</span>
                     <span className="col-span-1 text-red-400">싫어요</span>
                     <span className="col-span-1">작성자</span> {/* 2 -> 1로 축소 */}
@@ -59,9 +59,9 @@ const List = () => {
                 {/* 데이터 영역 */}
                 { (findNum ? findPost : posts).map((i) => (
                     <li key={i.id} className="grid grid-cols-12 gap-2 py-4 px-6 items-center text-center border-b border-gray-50 hover:bg-blue-50/30 transition-colors last:border-0">
-                        <span className="col-span-1 text-xs text-gray-400 font-mono truncate">{i.id}</span>
+                        <span className="col-span-2 text-xs text-gray-400 font-mono truncate">{i.id}</span>
                         
-                        <Link to={`/list/${i.id}`} className="col-span-4 text-left font-semibold text-gray-700 hover:text-blue-600 truncate px-2 transition-colors">
+                        <Link to={`/list/${i.id}`} className="col-span-3 text-left font-semibold text-gray-700 hover:text-blue-600 truncate px-2 transition-colors">
                             {i.title}
                         </Link>
                         
