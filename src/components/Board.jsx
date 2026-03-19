@@ -8,44 +8,79 @@ const Board = () => {
     const [post, setPost] = useState({});
     const [isLike, setIsLike] = useState(false);
     const [isHate, setIsHate] = useState(false);
-    const [numL,setNumL]=useState(1);
-    const [numH,setNumH]=useState(1);
-
-    // const [currentUser,setCurrnetUser]=useState(
-    //         JSON.parse(localStorage.getItem("currentUser"))||null
-    // );
 
     useEffect(() => {
         const posts = JSON.parse(localStorage.getItem('posts')) || [];
         const currentPost = posts.find((i) => i.id === parseInt(id));
+
         if (currentPost) {
             setPost(currentPost);
             setLike(currentPost.like || 0);
             setHate(currentPost.hate || 0);
-        }
-    }, [id, setLike, setHate]);
 
-    useEffect(() => {
-        if (!post.id) return;
-        const posts = JSON.parse(localStorage.getItem('posts')) || [];
-        const uppost = posts.map((p) => p.id === parseInt(id) ? { ...post, like: like, hate: hate } : p);
-        localStorage.setItem('posts', JSON.stringify(uppost));
-    }, [like, hate, id, post]);
+            if (currentUser) {
+                const likedList = currentPost.likedUser || [];
+                const hatedList = currentPost.hatedUser || [];
+                setIsLike(likedList.includes(currentUser.userId));
+                setIsHate(hatedList.includes(currentUser.userId));
+            }
+        }
+    }, [id, currentUser]);
 
     const onLike=()=>{
-        if(currentUser){
-            setIsLike(!isLike);
-            isLike?setNumL(1):setNumL(-1);
-            setLike((i) => i + numL);
-        }
+        if(!currentUser) return alert('로그인 후 이용 가능합니다.');
+
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const newIsLike = !isLike;
+        setIsLike(newIsLike);
+        
+        const uppost = posts.map((p) => {
+            if(p.id === parseInt(id)){
+                let currentList = p.likedUser || [];
+
+                if (newIsLike) {
+                    currentList = [...currentList, currentUser.userId];
+                } else {
+                    currentList = currentList.filter(i=> i !== currentUser.userId);
+                }
+
+                const newCount = newIsLike ? (p.like || 0) + 1 : (p.like || 1) - 1;
+                console.log(newCount)
+                setLike(newCount);
+
+                return { ...p, like: newCount, likedUser: currentList };
+            }
+            return p;
+        });
+        localStorage.setItem('posts', JSON.stringify(uppost));
     }
 
     const onHate=()=>{
-        if(currentUser){
-            setIsHate(!isHate);
-            isHate?setNumH(1):setNumH(-1);
-            setHate((i) => i + numH); 
-        }
+        if(!currentUser) return alert('로그인 후 이용 가능합니다.');
+
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const newIsHate = !isHate;
+        setIsHate(newIsHate);
+        
+        const uppost = posts.map((p) => {
+            if(p.id === parseInt(id)){
+                let currentList = p.hatedUser || [];
+
+                if (newIsHate) {
+                    currentList = [...currentList, currentUser.userId];
+                } else {
+                    currentList = currentList.filter(i=> i !== currentUser.userId);
+                }
+
+                const newCount = newIsHate ? (p.hate || 0) + 1 : (p.hate || 1) - 1;
+                console.log(newCount)
+                setHate(newCount);
+
+                return { ...p, hate: newCount, hatedUser: currentList };
+            }
+            return p;
+        });
+        localStorage.setItem('posts', JSON.stringify(uppost));
     }
 
 
