@@ -5,13 +5,13 @@ const Member = () => {
 
     //localStorage에 있는 회원 정보 가져오기
     const users = JSON.parse(localStorage.getItem("users")) || [];
-
     //로그인 한 사용자
     const {currentUser, setCurrentUser} = useCafe();
 
+    //localStorage에 있는 게시글 가져오기(회원별 게시글 작성 수 확인 위함)
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
     //출력할 회원 목록
     const [memberList, setMemberList] = useState([]);
-
     //검색 카테고리 종류
     const categories = ["별명(아이디)", "이메일", "게시글수"];
     //검색 입력값
@@ -19,25 +19,23 @@ const Member = () => {
     //select 선택값
     const [selected, setSelected] = useState("id");
 
-    const posts = JSON.parse(localStorage.getItem("posts")) || [];
 
-    //mount 되었을 때 게시글 목록 가져오기
+    //mount 되었을 때, 현재 로그인 한 사용자가 달라지면 게시글 목록 가져오기
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-
         //관리자라면 리스트를 출력하고
         if (currentUser && currentUser.userId === "admin") {
+            // eslint-disable-next-line react-hooks/immutability
             setMemberList(createMemberList(users));
         } else {
             setMemberList([]); // 관리자가 아니라면 null
         }
     }, [currentUser]);
 
+    //mount 되었을 때 현재 로그인 한 사용자 가져오기
     useEffect(()=>{
         const storedUser=JSON.parse(localStorage.getItem('currentUser'));
         setCurrentUser(storedUser);
     },[])
-
 
     //카테고리로 맴버 검색
     const findByCategory = () => {
@@ -53,10 +51,8 @@ const Member = () => {
             alert("검색 종류를 제대로 선택해주세요!");
             return;
         }
-
         const newMemberList = createMemberList(filterMemberList);
         setMemberList(newMemberList);
-
     }
 
     //화면에 출력할 목록 생성
@@ -82,6 +78,20 @@ const Member = () => {
         localStorage.setItem("users", JSON.stringify(newMembers));
     }
 
+    //조회 중 취소 버튼을 눌렀을 때
+    const cancelFind = () => {
+        //입력창 초기화
+        setInput("");
+        //전체 회원 목록 보여주기
+        const newMemberList = createMemberList(users);
+        setMemberList(newMemberList);
+    }
+
+    //검색창에서 enter키 눌러도 검색
+    const keyDownEvent = (e) => {
+        if (e.keyCode === 13) {findByCategory()}
+    }
+
     return (
         <div className="max-w-5xl mx-auto px-6 py-6">
             <div className="mb-4">
@@ -105,12 +115,13 @@ const Member = () => {
                                 </select>
                                 <input placeholder="검색어를 입력하세요"
                                        className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded-md outline-none bg-white focus:border-green-500 transition-colors"
-                                       value={input} onChange={(e) => setInput(e.target.value)}/>
+                                       value={input} onChange={(e) => setInput(e.target.value)}
+                                        onKeyDown={keyDownEvent}/>
                                 <button onClick={findByCategory}
                                         className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">검색
                                 </button>
-                                <button onClick={findByCategory}
-                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-400 text-white text-sm font-medium rounded-md transition-colors">검색
+                                <button onClick={cancelFind}
+                                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-500 text-white text-sm font-medium rounded-md transition-colors">취소
                                 </button>
                             </div>
                             {/*맴버 수*/}
@@ -133,8 +144,8 @@ const Member = () => {
                                 {memberList.length > 0 ? (memberList) : (
                                     <tr>
                                         <td colSpan="5" className="text-align: center; padding: 50px 0;">
-                                            <div>
-                                                <p>검색 결과와 일치하는 회원이 존재하지 않습니다.</p>
+                                            <div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
+                                                검색 결과와 일치하는 회원이 존재하지 않습니다.
                                             </div>
                                         </td>
                                     </tr>
@@ -142,8 +153,9 @@ const Member = () => {
                                 </tbody>
                             </table>
                         </>)
-                    : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">회원이 존재하지
-                        않습니다.</div>))
+                    : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
+                        회원이 존재하지 않습니다.
+                    </div>))
                 //아니라면 회원 목록 볼 수 없음
                 : (<div className="py-20 text-center border border-gray-100 rounded-md">
                         <span className="text-sm text-gray-600">회원 목록은 관리자만 조화할 수 있습니다.</span>
