@@ -29,13 +29,19 @@ const Mail = () => {
         <div>
             <Link to={'/mail/send'}><button>메일 보내기</button></Link>
             <ul>
+                <li className="grid grid-cols-12 gap-2 py-4 px-6 bg-gray-50 font-bold text-gray-600 border-b border-gray-200 text-sm">
+                    <span className="col-span-2 text-center">번호</span>
+                    <span className="col-span-2 text-center">보낸 사람</span>
+                    <span className="col-span-5 text-center">제목</span>
+                    <span className="col-span-3 text-center">작성일</span>
+                </li>
                 {mailList.length > 0 ? (
                     mailList.map((i)=>(
-                    <li key={i.id}>
-                        <div>보낸 사람 : {i.from}</div>
-                        <div>제목 : {i.title}</div>
-                        <div>{i.content}</div>
-                        <div>보낸 날짜 : {i.date}</div>
+                    <li key={i.id} className="grid grid-cols-12 gap-2 py-4 px-6 bg-gray-50 text-gray-600 border-b border-gray-200 text-sm items-center">
+                        <span className="col-span-2 text-center truncate">{i.id}</span>
+                        <span className="col-span-2 text-center truncate">{i.from}</span>
+                        <div className="col-span-5 flex justify-center items-center"><Link to={`/mail/${i.title}`}><span>{i.title}</span></Link></div>
+                        <span className="col-span-3 text-center text-gray-400 text-xs">{i.date}</span>
                     </li>
                 ))):(<li>메일이 없습니다.</li>)}
             </ul>

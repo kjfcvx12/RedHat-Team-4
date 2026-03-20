@@ -16,9 +16,15 @@ const SendMail = () => {
     const onSubmit=(e)=>{
         e.preventDefault();
 
-        if (!currentUser) {
-            alert("유저 정보가 없습니다. 로그인 해주세요.");
-            navigate('/login');
+        if (!currentUser || !mUser || !mTitle || !mContent) {
+            let msg='';
+            if(!currentUser){msg="유저 정보가 없습니다. 로그인 해주세요.";}
+            else if(!mUser){msg="수신자를 적어주세요."}
+            else if(!mTitle){msg="제목을 작성해 주세요."}
+            else if(!mContent){msg="내용을 작성해 주세요."}
+            alert(msg);
+
+            if(!currentUser)navigate('/login');
             return;
         }
 
