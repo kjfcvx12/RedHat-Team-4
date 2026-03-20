@@ -12,7 +12,6 @@ const SendMail = () => {
     const navigate = useNavigate();
 
 
-
     const onSubmit=(e)=>{
         e.preventDefault();
 
@@ -26,6 +25,11 @@ const SendMail = () => {
 
             if(!currentUser)navigate('/login');
             return;
+        }
+
+        if(mUser===currentUser.userId){
+            alert('메일은 본인에게 보낼 수 없습니다.')
+            return
         }
 
         const now = new Date();
@@ -48,23 +52,25 @@ const SendMail = () => {
             title:mTitle,
             content:mContent,
             date:formattedDate,
-
         };
 
-
-        const newSend = users.map((p) => {
+        const updatedUsers = users.map((p) => {
             if (p.userId === mUser) {
-                const updatedMail = p.mail ? [...p.mail, newMail] : [newMail];
-                return { ...p, mail: updatedMail };
+                return {...p, rMail: p.rMail ? [...p.rMail, newMail] : [newMail] 
+                };
             }
-        return p;
-    });
 
+            if (p.userId === currentUser.userId) {
+                return {...p, sMail: p.sMail ? [...p.sMail, newMail] : [newMail] 
+                };
+            }
+            return p;
+        });
 
-        localStorage.setItem("users",JSON.stringify(newSend));
+        localStorage.setItem("users",JSON.stringify(updatedUsers));
 
         alert('메일이 전송되었습니다.')
-        navigate('/Home');
+        navigate('/mail');
     }   
 
     return (

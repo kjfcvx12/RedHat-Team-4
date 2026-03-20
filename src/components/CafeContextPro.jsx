@@ -6,6 +6,8 @@ const CafeContextPro = ({children}) => {
 
     const [like,setLike]=useState(0);
     const [hate,setHate]=useState(0);
+    
+    const [selected, setSelected]=useState(true);
 
     const [currentUser,setCurrentUser]=useState(
         JSON.parse(localStorage.getItem('currentUser'))||null,
@@ -21,6 +23,7 @@ const CafeContextPro = ({children}) => {
         <CafeContext value={{
             like,setLike,
             hate,setHate,
+            selected, setSelected,
             currentUser,setCurrentUser,
             logout}}>
             {children}

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useCafe } from './CafeContextPro';
 
 const Mail = () => {
-    const { currentUser } = useCafe();
+    const { currentUser, selected, setSelected } = useCafe();
     const {id}=useParams();
 
     const [sMail, setSmail] = useState(null);
@@ -20,11 +20,15 @@ const Mail = () => {
 
         const myMail = users.find((i) => i.userId === currentUser.userId);
 
-        if (myMail && myMail.mail) {
-            const foundMail = myMail.mail.find((i) => i.id === Number(id));
-            setSmail(foundMail);
+         if (myMail) {
+            const mailBox = selected ? myMail.sMail : myMail.rMail;
+            
+            if (mailBox) {
+                const foundMail = mailBox.find((i) => i.id === Number(id));
+                setSmail(foundMail);
+            }
         }
-    }, [currentUser, navigate]);
+    }, [currentUser, navigate, selected, id]);
    
 
     return (
@@ -47,6 +51,14 @@ const Mail = () => {
                     메일이 없습니다.
                 </div>
             )}
+            <div className="flex justify-end w-full"> 
+                <Link to={'/mail'}>
+                        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded border-2 border-transparent transition-all shadow-sm active:scale-95"
+                        onClick={()=>setSelected(true)}>
+                            메일함
+                        </button>
+                </Link>
+            </div>
     </div>
     );
 };
