@@ -40,11 +40,11 @@ const List = () => {
 
     return (
         <div className="min-h-screen max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
-                <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">게시글 목록</h1>
+            <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
+                <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">카페글 목록</h1>
                 <Link to={'/board/create'}>
                     <button className="bg-gray-600 text-white px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-all active:scale-95">
-                        글쓰기
+                        카페 글쓰기
                     </button>
                 </Link>
             </div>
@@ -107,8 +107,8 @@ const List = () => {
                 ))}
             </ul>
 
-            {/* 검색창 영역 (생략 없음) */}
-            <div className="flex justify-center items-center gap-3 p-6 bg-gray-100 rounded-2xl shadow-inner">
+            {/* 검색창 영역 */}
+            <div className="flex justify-center items-center gap-3 p-6 bg-gray-100 rounded">
                 <select 
                     value={find}
                     onChange={(e) => setFind(e.target.value)}
@@ -123,14 +123,14 @@ const List = () => {
                     onChange={(e) => setInput(e.target.value)} 
                     onKeyDown={(e) => e.key === 'Enter' && handleFind()} 
                     value={input}
-                    className="w-80 border border-gray-300 rounded-lg px-5 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none transition-shadow"
-                    placeholder="검색어를 입력하세요..."
+                    className="w-80 border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    placeholder="검색어를 입력해주세요"
                 />
                 <div className="flex gap-2">
-                    <button onClick={handleFind} className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 font-bold transition-all shadow-sm active:scale-95">
+                    <button onClick={handleFind} className="bg-green-500 text-white px-5 py-1.5 rounded-lg hover:bg-green-600 font-bold transition-all active:scale-95">
                         검색
                     </button>
-                    <button onClick={handleCancel} className="bg-gray-400 text-white px-6 py-2.5 rounded-lg hover:bg-gray-500 transition-all shadow-sm active:scale-95">
+                    <button onClick={handleCancel} className="bg-gray-400 text-white px-5 py-1.5 rounded-lg hover:bg-gray-500 font-bold transition-all active:scale-95">
                         초기화
                     </button>
                 </div>

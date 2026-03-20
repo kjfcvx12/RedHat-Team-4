@@ -10,7 +10,7 @@ const Home = () => {
         // 레이아웃 컨테이너: flex, 간격, 패딩, 최대너비, 중앙정렬
         <main className="min-h-screen max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
             {/* 오른쪽 메인 게시판 */}
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+            <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
                     전체글보기
                 </h1>

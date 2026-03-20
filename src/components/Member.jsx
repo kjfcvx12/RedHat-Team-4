@@ -96,7 +96,7 @@ const Member = () => {
 
     return (
         <main className="min-h-screen max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+            <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
             </div>
             {/*관리자로 로그인했으면*/}
@@ -114,7 +114,7 @@ const Member = () => {
                                     <option value="id">별명(아이디)</option>
                                     <option value="email">이메일</option>
                                 </select>
-                                <input placeholder="검색어를 입력하세요"
+                                <input placeholder="검색어를 입력해주세요"
                                        className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors"
                                        value={input} onChange={(e) => setInput(e.target.value)}
                                        onKeyDown={keyDownEvent}/>
@@ -122,7 +122,7 @@ const Member = () => {
                                         className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded transition-colors">검색
                                 </button>
                                 <button onClick={cancelFind}
-                                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded transition-colors">취소
+                                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded transition-colors">초기화
                                 </button>
                             </div>
                             {/*맴버 수*/}
