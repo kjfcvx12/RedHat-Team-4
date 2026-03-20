@@ -99,80 +99,90 @@ const Member = () => {
             <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
                 <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
             </div>
-            {/*관리자로 로그인했으면*/}
-            {currentUser && currentUser.userId === "admin"
-                //회원 목록 출력할건데, 일단 등록된 맴버가 있는지 확인
-                ? (users.length > 0
-                    ? (
-                        <>
-                            {/*검색창*/}
-                            <div
-                                className="flex items-center gap-2 mb-4 p-4 bg-white border border-gray-100 rounded-md">
-                                <span className="text-sm font-medium text-gray-600 mr-2">맴버 검색</span>
-                                <select value={selected} onChange={(e) => setSelected(e.target.value)}
-                                        className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors">
-                                    <option value="id">별명(아이디)</option>
-                                    <option value="email">이메일</option>
-                                </select>
-                                <input placeholder="검색어를 입력해주세요"
-                                       className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors"
-                                       value={input} onChange={(e) => setInput(e.target.value)}
-                                       onKeyDown={keyDownEvent}/>
-                                <button onClick={findByCategory}
-                                        className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded transition-colors">검색
-                                </button>
-                                <button onClick={cancelFind}
-                                        className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded transition-colors">초기화
-                                </button>
-                            </div>
-                            {/*맴버 수*/}
-                            <div className="flex items-center gap-2 mb-3">
-                                <h5 className="text-sm text-gray-600">카페 멤버 수</h5>
-                                <span
-                                    className="text-sm font-bold text-green-500">{memberList ? memberList.length : 0}</span>
-                            </div>
-                            {/*맴버 목록*/}
-                            <div className="rounded-lg overflow-hidden border border-gray-200 hover:bg-gray-50">
-                                <table className="w-full text-sm">
-                                    <thead className="bg-gray-50 border-b border-gray-200">
-                                    <tr className="text-left text-gray-600">
-                                        {categories.map((category, index) => (
-                                            <th className="px-4 py-3 font-semibold " key={index}>{category}</th>
-                                        ))}
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100">
-                                    {/*실제 맴버 목록 출력 위치*/}
-                                    {memberList.length > 0 ? (memberList) : (
-                                        <tr>
-                                            <td colSpan="5" className="text-center py-[50px]">
-                                                <div
-                                                    className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
-                                                    검색 결과와 일치하는 회원이 존재하지 않습니다.
-                                                </div>
-                                            </td>
+            {/*누군가가 로그인했으면*/}
+            {currentUser ? (
+                // 로그인 한 사람이 관리자라면
+                currentUser.userId === "admin"
+                    //회원 목록 출력할건데, 일단 등록된 맴버가 있는지 확인
+                    ? (users.length > 0
+                        ? (
+                            <>
+                                {/*검색창*/}
+                                <div
+                                    className="flex items-center gap-2 mb-4 p-4 bg-white border border-gray-100 rounded-md">
+                                    <span className="text-sm font-medium text-gray-600 mr-2">맴버 검색</span>
+                                    <select value={selected} onChange={(e) => setSelected(e.target.value)}
+                                            className="px-3 py-1.5 text-sm text-gray-600 border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors">
+                                        <option value="id">별명(아이디)</option>
+                                        <option value="email">이메일</option>
+                                    </select>
+                                    <input placeholder="검색어를 입력해주세요"
+                                           className="flex-1 max-w-xs px-3 py-1.5 text-sm text-black border border-gray-100 rounded outline-none bg-white focus:border-green-500 transition-colors"
+                                           value={input} onChange={(e) => setInput(e.target.value)}
+                                           onKeyDown={keyDownEvent}/>
+                                    <button onClick={findByCategory}
+                                            className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded transition-colors">검색
+                                    </button>
+                                    <button onClick={cancelFind}
+                                            className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded transition-colors">초기화
+                                    </button>
+                                </div>
+                                {/*맴버 수*/}
+                                <div className="flex items-center gap-2 mb-3">
+                                    <h5 className="text-sm text-gray-600">카페 멤버 수</h5>
+                                    <span
+                                        className="text-sm font-bold text-green-500">{memberList ? memberList.length : 0}</span>
+                                </div>
+                                {/*맴버 목록*/}
+                                <div className="rounded-lg overflow-hidden border border-gray-200 hover:bg-gray-50">
+                                    <table className="w-full text-sm">
+                                        <thead className="bg-gray-50 border-b border-gray-200">
+                                        <tr className="text-left text-gray-600">
+                                            {categories.map((category, index) => (
+                                                <th className="px-4 py-3 font-semibold " key={index}>{category}</th>
+                                            ))}
+                                            <th></th>
                                         </tr>
-                                    )}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody className="divide-y divide-gray-100">
+                                        {/*실제 맴버 목록 출력 위치*/}
+                                        {memberList.length > 0 ? (memberList) : (
+                                            <tr>
+                                                <td colSpan="5" className="text-center py-[50px]">
+                                                    <div
+                                                        className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
+                                                        검색 결과와 일치하는 회원이 존재하지 않습니다.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </>)
+                        : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
+                            회원이 존재하지 않습니다.
+                        </div>))
+                    //아니라면 마이페이지
+                    : (
+                        <div className="py-20 px-10 border border-gray-100 rounded-md flex items-center gap-6">
+                            <div
+                                className="w-24 h-24 border border-gray-600 rounded-full flex items-center justify-center shrink-0">
+                                image
                             </div>
-                        </>)
-                    : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
-                        회원이 존재하지 않습니다.
-                    </div>))
-                //아니라면 마이페이지
-                : (<div className="py-20 px-10 border border-gray-100 rounded-md flex items-center gap-6">
-                        <div className="w-24 h-24 border border-gray-600 rounded-full flex items-center justify-center shrink-0">
-                            image
+                            <div className="flex flex-col gap-1 items-center">
+                                <h3 className="font-bold text-gray-800">{currentUser.userId}</h3>
+                                <span className="text-sm text-gray-500">{currentUser.email}</span>
+                            </div>
                         </div>
-                        <div className="flex flex-col gap-1 items-center">
-                            <h3 className="font-bold text-gray-800">{currentUser.userId}</h3>
-                            <span className="text-sm text-gray-500">{currentUser.email}</span>
-                        </div>
-                    </div>
-                )
-            }
+                    )
+            ) : (
+                <div className="py-20 text-center border border-gray-100 rounded-md">
+                    <span className="text-sm text-gray-600">회원 목록은 관리자만 조화할 수 있습니다.</span>
+                </div>
+            )}
+
+
         </main>
     );
 };
