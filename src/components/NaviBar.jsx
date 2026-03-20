@@ -19,6 +19,7 @@ const NaviBar = () => {
                 <li><Link to="/list" className="no-underline text-gray-600 text-sm">글목록</Link></li>
                 <li><Link to="/board/create" className="no-underline text-gray-600 text-sm">글쓰기</Link></li>
                 <li><Link to="/member" className="no-underline text-gray-600 text-sm">회원목록</Link></li>
+                <li><Link to='/mail'>메일</Link></li>
                 <div className="ml-auto flex items-center gap-4">
                     {!currentUser && (
                         <>
