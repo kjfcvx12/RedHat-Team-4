@@ -161,9 +161,15 @@ const Member = () => {
                     : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
                         회원이 존재하지 않습니다.
                     </div>))
-                //아니라면 회원 목록 볼 수 없음
-                : (<div className="py-20 text-center border border-gray-100 rounded-md">
-                        <span className="text-sm text-gray-600">회원 목록은 관리자만 조화할 수 있습니다.</span>
+                //아니라면 마이페이지
+                : (<div className="py-20 px-10 border border-gray-100 rounded-md flex items-center gap-6">
+                        <div className="w-24 h-24 border border-gray-600 rounded-full flex items-center justify-center shrink-0">
+                            image
+                        </div>
+                        <div className="flex flex-col gap-1 items-center">
+                            <h3 className="font-bold text-gray-800">{currentUser.userId}</h3>
+                            <span className="text-sm text-gray-500">{currentUser.email}</span>
+                        </div>
                     </div>
                 )
             }
