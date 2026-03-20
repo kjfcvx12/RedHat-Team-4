@@ -10,6 +10,7 @@ import Board from './components/Board';
 import EditBoard from './components/EditBoard';
 import Member from './components/Member';
 import SendMail from './components/SendMail';
+import MailList from './components/MailList';
 import Mail from './components/Mail';
 import './App.css';
 import { Link } from 'react-router-dom';
@@ -36,9 +37,9 @@ function App() {
               <Route path="/list/:id" element={<Board />} />
               <Route path="/board/edit/:id" element={<EditBoard />} />
               <Route path="/member" element={<Member />} />
+              <Route path='/mail' element={<MailList />}/>
               <Route path='/mail/send' element={<SendMail />}/>
-              <Route path='/mail' element={<Mail />}/>
-              
+              <Route path='/mail/:id' element={<Mail/>}/>
             </Routes>
           </section>
       </div>
