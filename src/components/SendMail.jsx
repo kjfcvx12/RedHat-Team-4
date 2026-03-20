@@ -68,24 +68,38 @@ const SendMail = () => {
     }   
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                받는 사람 <input type='text'
+        <div class="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+            <form onSubmit={onSubmit} class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-semibold text-gray-700">받는 사람</label>
+                    <input type='text'
                         value={mUser}
-                        onChange={(e) => setMUser(e.target.value)}/>
+                        onChange={(e) => setMUser(e.target.value)}
+                        class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+                </div>
 
-                제목 <input type='text'
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-semibold text-gray-700">제목</label>
+                    <input type='text'
                         value={mTitle}
-                        onChange={(e) => setMTitle(e.target.value)}/>
+                        onChange={(e) => setMTitle(e.target.value)}
+                        class="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+                </div>
 
-                <textarea
-                        value={mContent}
-                        onChange={(e) => setMContent(e.target.value)}/>
-                
+                <div class="flex flex-col gap-1">
+                    <label class="text-sm font-semibold text-gray-700">내용</label>
+                    <textarea
+                            rows="7"
+                            value={mContent}
+                            onChange={(e) => setMContent(e.target.value)}
+                            class="border border-gray-300 rounded-md p-2 resize-none focus:outline-none focus:ring-2 focus:ring-green-500"/>
+                </div>
 
-                <button type='submit'>전송</button>
+                <button type='submit' 
+                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition-colors">
+                    전송
+                </button>
             </form>
-            
         </div>
     );
 };
