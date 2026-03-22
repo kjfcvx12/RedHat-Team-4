@@ -55,7 +55,7 @@ const List = () => {
                     <span className="col-span-2">번호</span>
                     <span className="col-span-3 text-left px-2">제목</span>
                     <span className="col-span-1">좋아요</span>
-                    <span className="col-span-1 text-red-400">싫어요</span>
+                    <span className="col-span-1">싫어요</span>
                     <span className="col-span-1">작성자</span> {/* 2 -> 1로 축소 */}
                     <span className="col-span-2 text-center">작성일</span> {/* 간격 유지 */}
                     <span className="col-span-2">관리</span> {/* 1 -> 2로 확장 */}

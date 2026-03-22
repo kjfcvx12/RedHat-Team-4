@@ -21,16 +21,14 @@ const CreateBoard = () => {
   
     useEffect(() => {
         if (!currentUser) {
-            alert("로그인 후 다시 이용해 주세요!");
             navigate('/login');
         }
-    }, [currentUser]);
+    }, [currentUser,navigate]);
 
     const onSubmit1 = (e) => {
         e.preventDefault();
         
         if (!currentUser) {
-            alert("유저 정보가 없습니다. 다시 로그인 해주세요.");
             navigate('/login');
             return;
         }
