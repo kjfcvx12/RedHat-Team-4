@@ -8,6 +8,7 @@ const Member = () => {
     //로그인 한 사용자
     const {currentUser, setCurrentUser} = useCafe();
 
+    /*관리자 로그인 시 회원 목록 화면 관련*/
     //localStorage에 있는 게시글 가져오기(회원별 게시글 작성 수 확인 위함)
     const posts = JSON.parse(localStorage.getItem("posts")) || [];
     //출력할 회원 목록
@@ -19,6 +20,26 @@ const Member = () => {
     //select 선택값
     const [selected, setSelected] = useState("id");
 
+    /*일반 사용자 로그인 시 마이페이지 관련*/
+    //마이페이지 수정 상태 state
+    const [editMode, setEditMode] = useState(null);
+    //마이페이지 입력값
+    const [editUser, setEditUser] = useState({
+        userId: "",
+        email: "",
+        pw: "",
+        rePw: ""
+    });
+    useEffect(() => {
+        if (currentUser) {
+            setEditUser({
+                userId: currentUser.userId,
+                email: currentUser.email,
+                pw: "",
+                rePw: ""
+            })
+        }
+    }, [currentUser]);
 
     //mount 되었을 때, 현재 로그인 한 사용자가 달라지면 게시글 목록 가져오기
     useEffect(() => {
@@ -94,11 +115,45 @@ const Member = () => {
         }
     }
 
+    //맴버 수정 사항 저장
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+        if (storedUsers.find((e) => e.userId === editUser.userId && e.userId !== currentUser.userId)) {
+            alert('중복된 아이디입니다. 다른 아이디를 입력하세요.');
+            return;
+        }
+        if (editUser.userId.length < 5) {
+            alert('아이디는 5자 이상이어야 합니다!');
+            return;
+        }
+        if (editUser.email === null) {
+            alert('이메일을 입력해주세요!');
+            return;
+        }
+        if (editUser.pw.length < 8) {
+            alert('비밀번호는 8자 이상이어야 합니다!');
+            return;
+        }
+        if (editUser.pw !== editUser.rePw) {
+            alert('비밀번호를 다시 확인해주세요!');
+            return;
+        }
+
+        const editingUser = {userId: editUser.userId, pw: editUser.pw, email: editUser.email};
+
+        storedUsers = storedUsers.map((user) => user.userId === editUser.userId ? editingUser : user);
+        localStorage.setItem("users", JSON.stringify(storedUsers));
+        localStorage.setItem("currentUser", JSON.stringify(editingUser));
+        setCurrentUser(editingUser);
+        setEditMode(null);
+    }
+
     return (
         <main className="min-h-screen max-w-6xl mx-auto p-6 bg-white rounded-xl mt-10 text-gray-800">
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
-                <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
-            </div>
+
             {/*누군가가 로그인했으면*/}
             {currentUser ? (
                 // 로그인 한 사람이 관리자라면
@@ -107,6 +162,9 @@ const Member = () => {
                     ? (users.length > 0
                         ? (
                             <>
+                                <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
+                                    <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">맴버 목록</h1>
+                                </div>
                                 {/*검색창*/}
                                 <div
                                     className="flex items-center gap-2 mb-4 p-4 bg-white border border-gray-100 rounded-md">
@@ -151,7 +209,7 @@ const Member = () => {
                                                 <td colSpan="5" className="text-center py-[50px]">
                                                     <div
                                                         className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
-                                                        검색 결과와 일치하는 회원이 존재하지 않습니다.
+                                                        검색 결과와 일치하는 맴버가 존재하지 않습니다.
                                                     </div>
                                                 </td>
                                             </tr>
@@ -161,28 +219,84 @@ const Member = () => {
                                 </div>
                             </>)
                         : (<div className="py-10 text-center text-gray-600 border border-gray-100 rounded-md">
-                            회원이 존재하지 않습니다.
+                            맴버가 존재하지 않습니다.
                         </div>))
                     //아니라면 마이페이지
                     : (
-                        <div className="py-20 px-10 border border-gray-100 rounded-md flex items-center gap-6">
-                            <div
-                                className="w-24 h-24 border border-gray-600 rounded-full flex items-center justify-center shrink-0">
-                                image
+                        <>
+                            <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
+                                <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">내 정보 관리</h1>
                             </div>
-                            <div className="flex flex-col gap-1 items-center">
-                                <h3 className="font-bold text-gray-800">{currentUser.userId}</h3>
-                                <span className="text-sm text-gray-500">{currentUser.email}</span>
+                            <div className="py-10 px-10 border border-gray-100 rounded-md flex items-start gap-6">
+                                <div
+                                    className="w-24 h-24 bg-gray-200 rounded-full shrink-0">
+                                </div>
+                                {editMode ? (
+                                    <form onSubmit={onSubmit} className="flex flex-col gap-1 w-full">
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <span className="w-20 text-gray-500 shrink-0">새 아이디</span>
+                                            <input type="text" placeholder="아이디 5자 이상 입력"
+                                                   className="flex-1 border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-green-500"
+                                                   value={editUser.userId} onChange={(e) => setEditUser({...editUser, userId: e.target.value})}/>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <span className="w-20 text-gray-500 shrink-0">새 이메일</span>
+                                            <input type="email" placeholder="이메일 @ 포함 입력"
+                                                   className="flex-1 border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-green-500"
+                                                   value={editUser.email} onChange={(e) => setEditUser({...editUser, email: e.target.value})}/>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <span className="w-20 text-gray-500 shrink-0">새 비밀번호</span>
+                                            <input type="password" placeholder="8자 이상 입력"
+                                                   className="flex-1 border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-green-500"
+                                                   value={editUser.pw} onChange={(e) => setEditUser({...editUser, pw: e.target.value})}/>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <span className="w-20 text-gray-500 shrink-0">새 비밀번호 확인</span>
+                                            <input type="password" placeholder="비밀번호 확인"
+                                                   className="flex-1 border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-green-500"
+                                                   value={editUser.rePw} onChange={(e) => setEditUser({...editUser, rePw: e.target.value})}/>
+                                        </div>
+                                        <div className="flex gap-2 justify-end mt-2 pt-2">
+                                            <button type="submit"
+                                                    className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-bold cursor-pointer border-none rounded">저장
+                                            </button>
+                                            <button type="button" onClick={() => setEditMode(null)}
+                                                    className="px-5 py-1.5 bg-gray-600 hover:bg-gray-700 text-white text-xs border border-gray-200 cursor-pointer rounded">취소
+                                            </button>
+                                        </div>
+                                    </form>
+                                ) : (
+                                    <div className="flex flex-col gap-2 text-sm flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="w-20 text-gray-500 shrink-0">내 아이디</span>
+                                            <span className="text-gray-800">{currentUser.userId}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="w-20 text-gray-500 shrink-0">내 이메일</span>
+                                            <span className="text-gray-800">{currentUser.email}</span>
+                                        </div>
+                                        <div className="flex justify-end mt-auto pt-2">
+                                            <button onClick={() => setEditMode(true)}
+                                                    className="px-5 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-bold cursor-pointer border-none rounded">내 정보 수정하기
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        </div>
+                        </>
+
                     )
             ) : (
-                <div className="py-20 text-center border border-gray-100 rounded-md">
-                    <span className="text-sm text-gray-600">회원 목록은 관리자만 조화할 수 있습니다.</span>
-                </div>
+                <>
+                    <div className="flex justify-between items-center mb-8 pb-4 border-b border-black">
+                        <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">마이페이지</h1>
+                    </div>
+                    <div className="py-20 text-center border border-gray-100 rounded-md">
+                        <span className="text-sm text-gray-600">로그인 해주세요</span>
+                    </div>
+                </>
             )}
-
-
         </main>
     );
 };
